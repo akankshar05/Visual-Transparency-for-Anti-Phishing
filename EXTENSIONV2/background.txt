@@ -1,0 +1,49 @@
+var headers
+const loginKeywords = [
+        'username', 'password', 'login', 'signin', 'sign-in', 'log in', 'log-in', 'authenticate', 'credentials', 
+        'access', 'enter', 'account', 'identity', 'user', 'email', 'e-mail', 'passcode', 'customer number', 
+        'pin', 'secret code', 'authentication code', 'security code', 'passphrase', 'account number', 
+        'membership number', 'social security number', 'registration code', 'authorization code', 'login code', 
+        'secure login', 'unique identifier', 'login id', 'login name', 'login details', 'login information', 
+        'login credentials', 'login data', 'login token', 'login key'
+    ];
+Event Listener for Web Request:
+    response headers are received:
+        headers = response headers
+
+Function stringContainsLogin to check if a string contains any login keyword:
+    For keyword in loginKeywords:
+        If keyword in text
+            return true
+    return false
+
+Function isLoginPage2 to check if the page likely contains a login form:
+                For each form element on the page:
+                    If the form contains input fields for text, email, or password:
+    Criterion 1:         Check for login keywords in form innerText and in title attributes
+    Criterion 2:Check for login keywords in form attributes, text nodes, alt, and title attributes
+    Criterion 3:Check if the URL or page title contains keywords indicating a login page
+    Criterion 4:Check for login keywords in the entire DOM tree
+    if(Criterion 1 or Criterion 2 or Criterion 3 or Criterion 4):
+        return true
+    else
+        return false
+    
+
+Event Listener for Web Navigation:
+    When the DOM content is loaded:
+        shouldContinueLoading = true;
+        Execute the isLoginPage2 function to check if the page is a login page
+        If the page is a login page:
+            Capture the HTML content of the page
+            Send a fetch request with the captured HTML content and response headers to a specified endpoint (server)
+            If response == verified signature:
+                Set the flag to continue loading the page
+            If response == unverified signature:
+                ss = screenshot captured
+                Send the screenshot to another endpoint(screenshot_server) to receive model results
+                If phishing == true:
+                    shouldContinueLoading = false;
+        Wait for the fetch and processing to complete
+        If shouldContinueLoading = false:
+            Stop loading the page and display a phishing warning

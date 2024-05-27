@@ -1,0 +1,19 @@
+Function: check_header_valid_or_not(spt_header, url, content)
+    Preprocess the content to remove unnecessary whitespaces
+    Define helper functions:
+        pack_data(version, timestamp, hashed_result, hashed_result2)
+            Format and pack data into a byte string
+        hash_text(text)
+            Hash the input text using SHA256 algorithm and return the hashed result
+
+    Read log data from a JSON file
+    Compute hash values for the URL and content
+    Decode the supplied header data
+    Extract version, timestamp, log ID, and signature from the header
+    Check if the log ID exists in the log data
+    If the log ID is found:
+        Obtain the public key from the log data
+        Verify the signature using the public key
+        If verification succeeds
+            return True
+    return False

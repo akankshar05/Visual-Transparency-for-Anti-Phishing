@@ -1,0 +1,11 @@
+screenshot_server
+
+model(screenshot):
+    new_embedding = calculate_emb(screenshot)
+    for exist_embindding in database:
+        if(diff(exist_embindding, new_embedding)< threshold)
+            return true
+            // is phishing
+        else
+            return false
+            // not a phishing page
